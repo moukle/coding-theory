@@ -1,0 +1,8 @@
+# python
+__pycache__/
+
+# rust
+debug/
+target/
+Cargo.lock
+**/*.rs.bk
