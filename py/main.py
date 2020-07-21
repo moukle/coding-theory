@@ -10,12 +10,9 @@ def assignment_a():
     gf = GF(p=2, d=2, ip=ip)
     print(gf)
 
-
     ip = Polynomial([1,0,1,1])
     gf = GF(p=2, d=3, ip=ip)
     print(gf)
-
-
 
     ip = Polynomial([2,1,1])
     gf = GF(p=3, d=2, ip=ip)
@@ -25,6 +22,14 @@ def assignment_a():
     gf.mult_inverse(Polynomial([2, 2]))
 
     gf = GF(p=5, d=2, ip=Polynomial([2,1,1]))
+
+
+def assignment_b():
+    code = RS(d=5, q=7)
+
+    G    = code.generator_matrix()
+    GC   = code.canonic_matrix(G)
+    print(GC)
 
 
 def assignment_c():
@@ -45,5 +50,6 @@ def assignment_c():
 
 
 if __name__ == "__main__":
-    assignment_a()
+    # assignment_a()
+    assignment_b()
     # assignment_c()

@@ -9,14 +9,14 @@ from polynomial    import Polynomial
 
 class RS(Code):
     def __init__(self, d, q, a=None):
-        self.gf = GF(q)
+        # TODO: check if q = prime OR factorize in p^d
+        self.gf = GF(p=q)
 
         # set primitive element
         if a: self.a = a
         else: self.a = self.gf.primitive_element()
 
         Code.__init__(self, n=q-1, k=q-d, q=q, d=d)
-
 
     def generator_polynom(self, printing=False):
         # step 1
@@ -33,7 +33,7 @@ class RS(Code):
             acc = acc * poly
 
         # step 4
-        g = self.gf.polynom_in_gf(acc)
+        g = self.gf.mod(acc)
 
         if printing:
             print('Generator Polynom:')
@@ -59,7 +59,7 @@ class RS(Code):
             acc = acc * poly
 
         # step 4
-        h = self.gf.polynom_in_gf(acc)
+        h = self.gf.mod(acc)
 
         if printing:
             print('Control Polynom:')

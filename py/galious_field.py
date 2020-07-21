@@ -70,16 +70,17 @@ class GF:
         return e
 
 
-    def mult_inverse(self, e) -> int:
+    def mult_inverse(self, e, printing=False) -> int:
         inv = -1
         e = self.mod(e)
 
         if not e:
-            print(f"`{e}*` got no multiplicative inverse")
+            if printing:
+                print(f"`{e}*` got no multiplicative inverse")
             return inv
 
         # a^q-1=1, thus a^-1=a^q-2
-        if type(e) == int and e:
+        if type(e) == int or type(e) == np.int64:
             inv = e ** (self.q - 2)
 
         if type(e) == Polynomial:
@@ -87,8 +88,11 @@ class GF:
             for _ in range(self.q - 2):
                 inv *= e
 
-        inv = self.mod(inv)
-        print(f"{e=} * {inv=} is {self.mod(e*inv)}")
+        if inv is not -1:
+            inv = self.mod(inv)
+
+        if printing:
+            print(f"{e=} * {inv=} is {self.mod(e*inv)} ({type(e)=})")
 
         return inv
 
