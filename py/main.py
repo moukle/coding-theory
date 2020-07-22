@@ -2,6 +2,8 @@ from galious_field import GF
 from polynomial import Polynomial
 from codes import RS
 
+from numpy import flip
+
 def assignment_a():
     gf = GF(2)
     print(gf)
@@ -29,7 +31,24 @@ def assignment_b():
 
     G    = code.generator_matrix()
     GC   = code.canonic_matrix(G)
-    print(GC)
+    print(f"{G=}")
+    print(f"{GC=}")
+
+    GCF = flip(GC)
+    GS, swaps = code.systematic_matix(GCF)
+    # print(f"{GCF=}")
+    # print(f"{GS=}")
+    # print(f"{swaps=}")
+
+    H = code.dual_code(GC)
+    GHT = code.gf.mod(GC.dot(H.T))
+    print(f"{H=}")
+    print(f"H is {'valid' if (GHT==0).all() else 'INVALID'}") # (GH.T = {GHT})")
+
+    T = code.syndrom_table(GC, H)
+    c = code.syndrome_decoding([1,2,3,4,5,6], H, T)
+    print(f"{c=}")
+
 
 
 def assignment_c():
@@ -48,8 +67,15 @@ def assignment_c():
     print(f"{V=}\n")
     print(f"GV^T = \n{rs.gf.mod(G.dot(V.T))}\n")
 
+    T = rs.syndrom_table(G, H)
+    v1 = [4, 2, 3, 6, 1, 1]
+    v2 = [4, 2, 3, 6, 2, 1]
+    v3 = [4, 2, 3, 7, 2, 1]
+    c1 = rs.syndrome_decoding(v1,H, T); print(f"{v1=} -> {c1=}")
+    c2 = rs.syndrome_decoding(v2,H, T); print(f"{v2=} -> {c2=}")
+    c3 = rs.syndrome_decoding(v3,H, T); print(f"{v3=} -> {c3=}")
 
 if __name__ == "__main__":
     # assignment_a()
-    assignment_b()
-    # assignment_c()
+    # assignment_b()
+    assignment_c()
