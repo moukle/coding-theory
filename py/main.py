@@ -1,6 +1,6 @@
 from galious_field import GF
 from polynomial import Polynomial
-from codes import RS
+from codes import RS, HAM, RM
 
 from numpy import flip
 
@@ -45,9 +45,22 @@ def assignment_b():
     print(f"{H=}")
     print(f"H is {'valid' if (GHT==0).all() else 'INVALID'}") # (GH.T = {GHT})")
 
-    T = code.syndrom_table(GC, H)
-    c = code.syndrome_decoding([1,2,3,4,5,6], H, T)
-    print(f"{c=}")
+    # T = code.syndrom_table(GC, H)
+    # c = code.syndrome_decoding([1,2,3,4,5,6], H, T)
+    # print(f"{c=}")
+
+    code = HAM(3, 2)
+    H = code.control_matrix()
+    G = code.generator_matrix()
+    print(f"{H=}")
+    print(f"{G=}")
+    print(f"{code.gf.mod(G.dot(H.T))=}")
+
+    code = RM(1, 2)
+    G = code.generator_matrix()
+    H = code.control_matrix()
+    print(f"{G=}")
+    print(f"{code.gf.mod(G.dot(H.T))=}")
 
 
 
@@ -77,5 +90,5 @@ def assignment_c():
 
 if __name__ == "__main__":
     # assignment_a()
-    # assignment_b()
-    assignment_c()
+    assignment_b()
+    # assignment_c()

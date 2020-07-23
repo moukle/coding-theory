@@ -12,7 +12,12 @@ class Code:
         self.d = d
 
         self.gf = self.gf # defined by subclass
-        print(f"Created Code: {self} \n")
+
+        print(
+                "\n==================================================\n" +
+                f"Created Code: {self} \n" +
+                "--------------------------------------------------"
+            )
 
     def __str__(self):
         return f'{self.__class__.__name__}({self.n}, {self.k}, {self.d}; {self.q})'
@@ -77,7 +82,7 @@ class Code:
         I  = np.eye(c-r)
         P  = CS[:,r:]
         nP = self.gf.mod(-P)
-        CD = np.append(I, nP.T, axis=1)
+        CD = np.append(nP.T, I, axis=1)
 
         # rebuild initial order
         for i,j in swaps:
@@ -120,12 +125,3 @@ class Code:
 
     def hamming_weight(self, c):
         return sum(np.array(c) != 0)
-
-
-# depr: remove after some more testing
-    # for i in range(r+1, rows): # fill rows below in pivotcolumn c with zeros
-        # inv = self.gf.mod(-M[i,c])
-        # M[i,:] = self.gf.mod(M[i,:] + M[r,:]*inv)
-    # for i in range(0, r): # fill rows above in pivotcolumn c with zeros
-        # inv = self.gf.mod(-M[i,c])
-        # M[i,:] = self.gf.mod(M[i,:] + M[r,:]*inv)
