@@ -89,6 +89,6 @@ def assignment_c():
     c3 = rs.syndrome_decoding(v3,H, T); print(f"{v3=} -> {c3=}")
 
 if __name__ == "__main__":
-    # assignment_a()
+    assignment_a()
     assignment_b()
-    # assignment_c()
+    assignment_c()

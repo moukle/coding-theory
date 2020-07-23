@@ -88,7 +88,7 @@ class GF:
             for _ in range(self.q - 2):
                 inv *= e
 
-        if inv is not -1:
+        if inv != -1:
             inv = self.mod(inv)
 
         if printing:
